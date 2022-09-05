@@ -1,10 +1,64 @@
 import React from 'react';
 import {Card ,CardContent, Typography,Grid} from '@material-ui/core';
+import styles from './Cards.module.css';
+import CountUp from 'react-countup';
 
-const Cards = ({data}) => {
-  console.log('this is the props data',data);
+const Cards = ({data: {confirmed,recovered,deaths,lastUpdate}}) => {
+
+  if(!confirmed){
+   return 'Loading...'
+  }
+
   return (
-    <div>Cards</div>
+    <div className={styles.container}>
+      <Grid container spacing={3} justify="center">
+      <Grid item component={Card}>
+        <CardContent>
+          <Typography color="textSecondary" gutterBottom>Infected</Typography>
+        </CardContent>
+        <Typography variant='h5'>
+        <CountUp
+        start={0}
+        end={confirmed.value}
+        duration={2.5}
+        separator=","
+        />  
+        </Typography>
+        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
+        <Typography variant="body2">Number of active cases of COVID-19</Typography>
+      </Grid>
+      <Grid item component={Card}>
+        <CardContent>
+          <Typography color="textSecondary" gutterBottom>Recovered</Typography>
+        </CardContent>
+        <Typography variant='h5'>
+        <CountUp
+        start={0}
+        end={recovered.value}
+        duration={2.5}
+        separator=","
+        />  
+        </Typography>
+        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
+        <Typography variant="body2">Number of recoveries from COVID-19</Typography>
+      </Grid>
+      <Grid item component={Card}>
+        <CardContent>
+          <Typography color="textSecondary" gutterBottom>Deaths</Typography>
+        </CardContent>
+        <Typography variant='h5'>
+        <CountUp
+        start={0}
+        end={deaths.value}
+        duration={2.5}
+        separator=","
+        />  
+        </Typography>
+        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
+        <Typography variant="body2">Number of deathes caused by COVID-19</Typography>
+      </Grid>
+      </Grid>
+    </div>
   )
 }
 
